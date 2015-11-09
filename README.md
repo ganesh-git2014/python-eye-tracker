@@ -1,8 +1,17 @@
-# python-eye-tracker
+# Python Eye Tracker
 
-HAAR Cascade File Link:
+
+## PyQt5 Link:
+https://www.riverbankcomputing.com/software/pyqt/download5
+
+
+## HAAR Cascade File Link:
 https://github.com/Itseez/opencv/tree/master/data/haarcascades
 
-Installation:
+
+##Installation:
+(developed and tested on Windows 10)
+
 - Build and Install OpenCV 3 for Python 3 using CMake
-- Run face_detect.py
+- Install PyQt5
+- Run eye_detect.py

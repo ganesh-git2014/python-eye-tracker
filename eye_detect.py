@@ -2,7 +2,7 @@ import cv2
 import sys
 
 FRAME_TITLE = "Python Eye Tracker 6000"
-CASCADE_PATH = "haarcascades/haarcascade_eye.xml"
+CASCADE_PATH = "haarcascades/haarcascade_righteye_2splits.xml"
 
 obj_cascade = cv2.CascadeClassifier(CASCADE_PATH)
 
@@ -17,7 +17,7 @@ while True:
     detected_objs = obj_cascade.detectMultiScale(
         gray,
         scaleFactor=1.1,
-        minNeighbors=2,
+        minNeighbors=1,
         minSize=(30, 30),
         flags=cv2.CASCADE_SCALE_IMAGE
     )
@@ -27,8 +27,8 @@ while True:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
     # Display the resulting frame
-    cv2.imshow(FRAME_TITLE, frame)
-
+    my_window = cv2.imshow(FRAME_TITLE, frame)
+    
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
