@@ -1,17 +1,16 @@
 import cv2
+import sys
 
 FRAME_TITLE = "Python Eye Tracker 6000"
 CASCADE_PATH = "haarcascades/haarcascade_righteye_2splits.xml"
-CAMERA_DEVICE = 0
 
 obj_cascade = cv2.CascadeClassifier(CASCADE_PATH)
-video_capture = cv2.VideoCapture(CAMERA_DEVICE)
+
+video_capture = cv2.VideoCapture(0)
 
 while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
-    if not ret:
-        print("Error loading camera:", CAMERA_DEVICE)
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
