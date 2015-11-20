@@ -60,3 +60,4 @@ target/
 *.xml
 .project
 .pydevproject
+.wmv
