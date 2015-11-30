@@ -58,6 +58,8 @@ target/
 
 # General files
 *.xml
-.project
-.pydevproject
-.wmv
+*.project
+*.pydevproject
+*.wmv
+.settings
+junk

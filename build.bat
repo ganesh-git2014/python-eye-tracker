@@ -1,1 +1,0 @@
-pyuic5 "C:\Users\rcbyron\Documents\Workspace\py\python-eye-tracker\capture.ui" --output "C:\Users\rcbyron\Documents\Workspace\py\python-eye-tracker\capture.py" -x
