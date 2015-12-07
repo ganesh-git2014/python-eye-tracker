@@ -46,13 +46,3 @@ class Ui_EditorDialog(object):
         self.pushButton.setText(_translate("EditorDialog", "Reset"))
         self.pushButton_2.setText(_translate("EditorDialog", "Apply"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    EditorDialog = QtWidgets.QDialog()
-    ui = Ui_EditorDialog()
-    ui.setupUi(EditorDialog)
-    EditorDialog.show()
-    sys.exit(app.exec_())
-

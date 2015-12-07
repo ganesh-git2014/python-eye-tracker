@@ -44,13 +44,3 @@ class Ui_SecondaryWindow(object):
         self.pushButton.setText(_translate("SecondaryWindow", "Seeing Camera"))
         self.pushButton_2.setText(_translate("SecondaryWindow", "Eye Camera"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    SecondaryWindow = QtWidgets.QDialog()
-    ui = Ui_SecondaryWindow()
-    ui.setupUi(SecondaryWindow)
-    SecondaryWindow.show()
-    sys.exit(app.exec_())
-
