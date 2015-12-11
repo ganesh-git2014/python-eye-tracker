@@ -6,62 +6,61 @@ Created on Dec 7, 2015
 import os, cv2
 from classes.enhanced_cam import EnhancedCam
 
-recording_dir = "recordings"
-
-cameras = {}
-eye_cam = None
-seeing_cam = None
-cap_eye = False
-cap_Seeing = False
-
-def init():
-    ensure_dir(recording_dir)
-    
-    find_cameras()
-    
-    if len(cameras.items()) >= 2:
-        eye_cam = cameras[0]
-        seeing_cam = cameras[1]
-    elif len(cameras.items()) == 1:
-        eye_cam = cameras[0]
+RECORDING_DIR = "recordings"
 
 def ensure_dir(f):
-    d = os.path.dirname(f)
+    d = os.path.join(os.getcwd(), os.path.dirname(f))
     if not os.path.exists(d):
-        os.makedirs(d)
+        os.mkdir(d)
 
-def find_cameras():
-    global cameras
-    cameras = {}
-    for i in range(10):
-        temp_cam = cv2.VideoCapture(i)
-        if temp_cam.isOpened():
-            cameras[i] = EnhancedCam(i, temp_cam)
-            print("Found", cameras[i])
-            temp_cam.release()
+inst = None
 
-def show_eye():
-    global cap_eye
-    if eye_cam:
-        cap_eye = eye_cam.open()
-
-def show_seeing():
-    global cap_seeing
-    if seeing_cam:
-        cap_seeing = seeing_cam.open()
+class Settings():
+    def __init__(self):
+        self.cameras = {}
+        self.eye_cam = None
+        self.seeing_cam = None
+        self.is_show_eye = False
+        self.is_show_seeing = False
+        self.is_cap_eye = False
+        self.is_cap_seeing = False
         
-def close_eye():
-    global cap_eye
-    cap_eye = False
-    if eye_cam:
-        eye_cam.release()
-
-def close_seeing():
-    global cap_seeing
-    cap_seeing = False
-    if seeing_cam:
-        seeing_cam.release()
+        ensure_dir(RECORDING_DIR)
         
-def toggle_eye():
-    if eye_cam and eye_cam.isOpen():
-        show_
+        self.find_cameras()
+        
+        if len(self.cameras.items()) >= 2:
+            self.eye_cam = self.cameras[0]
+            self.seeing_cam = self.cameras[1]
+        elif len(self.cameras.items()) == 1:
+            self.eye_cam = self.cameras[0]
+    
+    def find_cameras(self):
+        self.cameras = {}
+        for i in range(10):
+            temp_cam = cv2.VideoCapture(i)
+            if temp_cam.isOpened():
+                self.cameras[i] = EnhancedCam(i, temp_cam)
+                print("Found", self.cameras[i])
+                temp_cam.release()
+    
+    def show_eye(self):
+        if self.eye_cam:
+            self.is_show_eye = self.eye_cam.open()
+    
+    def show_seeing(self):
+        if self.seeing_cam:
+            self.is_show_seeing = self.seeing_cam.open()
+            
+    def close_eye(self):
+        self.is_cap_eye = False
+        self.is_show_eye = False
+        if self.eye_cam:
+            self.eye_cam.release()
+    
+    def close_seeing(self):
+        self.is_cap_seeing = False
+        self.is_show_seeing = False
+        if self.seeing_cam:
+            self.seeing_cam.release()
+    

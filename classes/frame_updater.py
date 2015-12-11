@@ -7,6 +7,8 @@ from PyQt5.QtCore import QObject, pyqtSignal
 from PyQt5.QtGui import QImage, QPixmap
 import cv2
 
+import settings
+
 CASCADE_PATH = "haarcascades/haarcascade_eye.xml"
 
 def frame_to_pixmap(f):
@@ -14,26 +16,18 @@ def frame_to_pixmap(f):
     return QPixmap.fromImage(mimage)
 
 class FrameUpdater(QObject):
-    frame_ready = pyqtSignal(QPixmap, int)
-    
-    def __init__(self):
-        super().__init__()
-        self.eye_cam = None
-        self.seeing_cam = None
-        self.cap_eye = False
-        self.cap_seeing = False
-
-
+    eye_frame_ready = pyqtSignal(QPixmap, int)
+    seeing_frame_ready = pyqtSignal(QPixmap, int)
 
     def process(self): # A slot takes no params
-        while(self.cap_eye or self.cap_seeing):
-            if self.cap_eye:
-                ret, f = self.eye_cam.read()
+        while(settings.is_show_eye or settings.is_show_seeing):
+            if settings.is_show_eye:
+                ret, f = settings.eye_cam.read()
                 if ret:
                     self.eye_frame_ready.emit(frame_to_pixmap(f), 1)
             
-            if self.cap_seeing:
-                ret, f = self.seeing_cam.read()
+            if settings.is_show_seeing:
+                ret, f = settings.seeing_cam.read()
                 if ret:
                     self.seeing_frame_ready.emit(frame_to_pixmap(f), 2)
 
