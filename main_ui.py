@@ -9,12 +9,12 @@ from PyQt5.QtCore import QThread
 
 from ui.main_window import Ui_MainWindow as MainUi
 from classes.frame_updater import FrameUpdater
-import settings
+import PyET as PyETC
 
 class TrackerGui(MainUi):
  
     def update_cam_list(self):
-        cam_list = [cam.__str__() for cam in settings.cameras.values()]
+        cam_list = [cam.__str__() for cam in PyETC.cameras.values()]
         self.eye_cam_combo_box.clear()
         self.seeing_cam_combo_box.clear()
         self.eye_cam_combo_box.addItems(cam_list)
@@ -23,10 +23,12 @@ class TrackerGui(MainUi):
     def update_res_list(self):
         self.eye_res_combo_box.clear()
         self.seeing_res_combo_box.clear()
-        if settings.eye_cam:
-            self.eye_res_combo_box.addItems(settings.eye_cam.str_resolutions)
-        if settings.seeing_cam:
-            self.seeing_res_combo_box.addItems(settings.seeing_cam.str_resolutions)
+        if PyETC.eye_cam:
+            r_list = [str(res[0]) + " x " + str(res[1]) for res in PyETC.eye_cam.get_available_resolutions()]
+            self.eye_res_combo_box.addItems(r_list)
+        if PyETC.seeing_cam:
+            r_list = [str(res[0]) + " x " + str(res[1]) for res in PyETC.seeing_cam.get_available_resolutions()]
+            self.seeing_res_combo_box.addItems(r_list)
     
     def show_eye(self):
         print("Showing eye!")
@@ -48,8 +50,8 @@ class TrackerGui(MainUi):
         
         self.start_cap_btn.released.connect(lambda: print("recording!"))
         self.stop_cap_btn.released.connect(lambda: print("stopped recording!"))
-        self.eye_cam_btn.pressed.connect(settings.show_eye)
-        self.seeing_cam_btn.pressed.connect(settings.show_seeing)
+        self.eye_cam_btn.pressed.connect(PyETC.show_eye)
+        self.seeing_cam_btn.pressed.connect(PyETC.show_seeing)
 
     def on_frame_ready(self, pixmap, cam_type):
         if cam_type is 1:

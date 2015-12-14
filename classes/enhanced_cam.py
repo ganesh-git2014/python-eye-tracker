@@ -64,9 +64,5 @@ class EnhancedCam():
         self.set_resolution(orig_res)
         return available_res_set
 
-    def list(self):
-        print("- Resolution:", self.res())
-        print("- FPS:", self.fps())
-        
     def __str__(self):
         return "Device " + str(self.id)

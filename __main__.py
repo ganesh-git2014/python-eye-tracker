@@ -3,8 +3,9 @@ import sys
 from PyQt5 import QtWidgets
 from main_ui import TrackerGui
 
-import settings
-settings.init()
+import PyET
+
+PyET.start()
 
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = QtWidgets.QMainWindow()

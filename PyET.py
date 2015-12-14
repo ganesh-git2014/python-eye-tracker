@@ -8,14 +8,18 @@ from classes.enhanced_cam import EnhancedCam
 
 RECORDING_DIR = "recordings"
 
+inst = None
+
+def start():
+    global inst
+    inst = PyETCore()
+
 def ensure_dir(f):
     d = os.path.join(os.getcwd(), os.path.dirname(f))
     if not os.path.exists(d):
         os.mkdir(d)
 
-inst = None
-
-class Settings():
+class PyETCore():
     def __init__(self):
         self.cameras = {}
         self.eye_cam = None
