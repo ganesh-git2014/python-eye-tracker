@@ -5,7 +5,7 @@ from main_ui import TrackerGui
 
 import PyET
 
-PyET.start()
+PyET.init()
 
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = QtWidgets.QMainWindow()

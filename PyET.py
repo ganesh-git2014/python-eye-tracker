@@ -6,11 +6,11 @@ Created on Dec 7, 2015
 import os, cv2
 from classes.enhanced_cam import EnhancedCam
 
-RECORDING_DIR = "recordings"
+RECORDING_DIR = 'recordings'
 
 inst = None
 
-def start():
+def init():
     global inst
     inst = PyETCore()
 
@@ -45,7 +45,7 @@ class PyETCore():
             temp_cam = cv2.VideoCapture(i)
             if temp_cam.isOpened():
                 self.cameras[i] = EnhancedCam(i, temp_cam)
-                print("Found", self.cameras[i])
+                print('Found', self.cameras[i])
                 temp_cam.release()
     
     def show_eye(self):
