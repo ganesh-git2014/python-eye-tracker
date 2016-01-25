@@ -6,7 +6,7 @@ Created on Dec 7, 2015
 import PyET
 
 from PyQt5 import QtCore
-from PyQt5.QtCore import QThread
+from PyQt5.QtCore import Qt, QThread
 
 from ui.main_window import Ui_MainWindow as MainUi
 from classes.frame_updater import FrameUpdater
@@ -14,7 +14,7 @@ from classes.frame_updater import FrameUpdater
 class TrackerGui(MainUi):
  
     def update_cam_list(self):
-        cam_list = [cam.__str__() for cam in PyET.inst.cameras.values()]
+        cam_list = [str(cam) for cam in PyET.inst.cameras.values()]
         self.eye_cam_combo_box.clear()
         self.seeing_cam_combo_box.clear()
         self.eye_cam_combo_box.addItems(cam_list)
@@ -54,6 +54,7 @@ class TrackerGui(MainUi):
         self.seeing_cam_btn.pressed.connect(PyET.inst.show_seeing)
 
     def on_frame_ready(self, pixmap, cam_type):
+        pixmap = pixmap.scaled(self.cam_view.size(), Qt.KeepAspectRatio)
         if cam_type is 1:
             self.cam_view.setPixmap(pixmap)
         elif cam_type is 2:

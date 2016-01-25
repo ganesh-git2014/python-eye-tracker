@@ -20,7 +20,18 @@ class FrameUpdater(QObject):
 
     def process(self): # A slot takes no params
         print("YOOO")
-        while True:#(PyET.inst.is_show_eye or PyET.inst.is_show_seeing):
+        while True:
+            if PyET.inst.eye_cam and PyET.inst.eye_cam.cam:
+                if not PyET.inst.eye_cam.cam.isOpened():
+                    print("not open")
+                    print(PyET.inst.eye_cam.open())
+                ret, f = PyET.inst.eye_cam.cam.read()
+                f = cv2.flip(f, 0)
+                if ret:
+                    self.eye_frame_ready.emit(frame_to_pixmap(f), 1)
+                #else:
+                #    PyET.inst.eye_cam.cam.imshow()
+        """while True:#(PyET.inst.is_show_eye or PyET.inst.is_show_seeing):
             print('MADE IT TO FRAME UPDATER', PyET.inst.is_show_eye)
             
             if PyET.inst.is_show_eye:
@@ -38,3 +49,4 @@ class FrameUpdater(QObject):
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+        """

@@ -49,7 +49,7 @@ class PyETCore():
                 print('Found camera '+str(i)+'...')
                 self.cameras[i] = EnhancedCam(i, temp_cam)
                 print('Registered', self.cameras[i])
-                temp_cam.release()
+                self.cameras[i].cam.release()
     
     def show_eye(self):
         if self.eye_cam:

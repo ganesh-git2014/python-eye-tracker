@@ -12,7 +12,7 @@ DEFAULT_RESOLUTIONS = {#(480, 360),
                        #(1280, 720),
                        (1920, 1080)}
 
-class EnhancedCam():
+class EnhancedCam(cv2.VideoCapture):
     def __init__(self, cam_id, cam):
         self.id = cam_id
         self.cam = cam
@@ -42,6 +42,10 @@ class EnhancedCam():
         self.resolutions = {self.res()}
         self.resolutions.update(set(self.get_available_resolutions()))
         self.str_resolutions = [str(res[0])+' x '+str(res[1]) for res in self.resolutions]
+    
+    def open(self):
+        if not self.cam.isOpened():
+            self.cam.open(self.id)
     
     def set_resolution(self, res):
         """ Return true if successful """
