@@ -4,9 +4,11 @@ Created on Dec 7, 2015
 @author: rcbyron
 '''
 import os, cv2
+
 from classes.enhanced_cam import EnhancedCam
 
 RECORDING_DIR = 'recordings'
+CASCADE_PATH = 'haarcascades/haarcascade_eye.xml'
 
 inst = None
 
@@ -44,17 +46,22 @@ class PyETCore():
         for i in range(10):
             temp_cam = cv2.VideoCapture(i)
             if temp_cam.isOpened():
+                print('Found camera '+str(i)+'...')
                 self.cameras[i] = EnhancedCam(i, temp_cam)
-                print('Found', self.cameras[i])
+                print('Registered', self.cameras[i])
                 temp_cam.release()
     
     def show_eye(self):
         if self.eye_cam:
-            self.is_show_eye = self.eye_cam.open()
+            print("showing eye bruh...")
+            #print(dir(self.eye_cam.cam))
+            #self.eye_cam.cam.imshow()
+            self.is_show_eye = True#self.eye_cam.cam.open()
+            print("k yo")
     
     def show_seeing(self):
         if self.seeing_cam:
-            self.is_show_seeing = self.seeing_cam.open()
+            self.is_show_seeing = self.seeing_cam.cam.open()
             
     def close_eye(self):
         self.is_cap_eye = False

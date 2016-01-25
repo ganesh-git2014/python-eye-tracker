@@ -3,13 +3,13 @@ Created on Dec 7, 2015
 
 @author: rcbyron
 '''
+import PyET
+
 from PyQt5 import QtCore
 from PyQt5.QtCore import QThread
 
-
 from ui.main_window import Ui_MainWindow as MainUi
 from classes.frame_updater import FrameUpdater
-import PyET
 
 class TrackerGui(MainUi):
  
@@ -24,10 +24,10 @@ class TrackerGui(MainUi):
         self.eye_res_combo_box.clear()
         self.seeing_res_combo_box.clear()
         if PyET.inst.eye_cam:
-            r_list = [str(res[0]) + ' x ' + str(res[1]) for res in PyET.inst.eye_cam.get_available_resolutions()]
+            r_list = PyET.inst.eye_cam.str_resolutions
             self.eye_res_combo_box.addItems(r_list)
         if PyET.inst.seeing_cam:
-            r_list = [str(res[0]) + ' x ' + str(res[1]) for res in PyET.inst.seeing_cam.get_available_resolutions()]
+            r_list = PyET.inst.seeing_cam.str_resolutions
             self.seeing_res_combo_box.addItems(r_list)
     
     def show_eye(self):

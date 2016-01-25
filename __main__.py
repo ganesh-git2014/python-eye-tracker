@@ -1,9 +1,10 @@
 import sys
 
-from PyQt5 import QtWidgets
-from main_ui import TrackerGui
-
 import PyET
+
+from PyQt5 import QtWidgets
+
+from main_ui import TrackerGui
 
 PyET.init()
 
