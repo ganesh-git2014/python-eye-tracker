@@ -20,21 +20,21 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='AthenaVoice',
+    name='PyET',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.0.0a12',
+    version='1.0.0a1',
 
-    description='Your personal voice assistant',
+    description='Python Eye Tracking & Recording Software',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/athena-voice/athena-voice-client',
+    url='https://github.com/rcbyron/python-eye-tracker',
 
     # Author details
-    author='Athena Voice',
+    author='Connor Byron',
     author_email='rcbyron3@gmail.com',
 
     # Choose your license
@@ -63,7 +63,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='athena voice assistant development',
+    keywords='eye tracking recording capturing development',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
@@ -73,15 +73,13 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['pocketsphinx', 'SpeechRecognition', 'gTTS',
-                      'pyglet', 'pyyaml', 'wolframalpha'],
+    install_requires=[],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
-        'spotify': ['selenium'],
         #'test': [''],
         #'dev': [''],
     },

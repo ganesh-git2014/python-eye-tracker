@@ -3,7 +3,11 @@ Created on Nov 30, 2015
 
 @author: rcbyron
 '''
-import cv2
+import os, cv2
+
+from datetime import datetime
+
+from PyET import settings
 
 DEFAULT_RESOLUTIONS = {#(480, 360),
                        (640, 480),
@@ -12,11 +16,20 @@ DEFAULT_RESOLUTIONS = {#(480, 360),
                        #(1280, 720),
                        (1920, 1080)}
 
-class EnhancedCam(cv2.VideoCapture):
+class EnhancedCam():
     def __init__(self, cam_id, cam):
         self.id = cam_id
         self.cam = cam
+        self.recording = False
         
+        self.resolutions = {self.res()}
+        self.resolutions.update(set(self.get_available_resolutions()))
+        self.str_resolutions = [str(res[0])+' x '+str(res[1]) for res in self.resolutions]
+    
+        self.wrap_get()
+        self.wrap_vc()
+    
+    def wrap_get(self):
         self.res =              lambda: (int(self.cam.get(cv2.CAP_PROP_FRAME_WIDTH)),
                                          int(self.cam.get(cv2.CAP_PROP_FRAME_HEIGHT)))
         self.aperture =         lambda: self.cam.get(cv2.CAP_PROP_APERTURE)
@@ -38,14 +51,36 @@ class EnhancedCam(cv2.VideoCapture):
         self.w_balance_u =      lambda: self.cam.get(cv2.CAP_PROP_WHITE_BALANCE_BLUE_U)
         self.w_balance_v =      lambda: self.cam.get(cv2.CAP_PROP_WHITE_BALANCE_RED_V)
         self.zoom =             lambda: self.cam.get(cv2.CAP_PROP_ZOOM)
-        
-        self.resolutions = {self.res()}
-        self.resolutions.update(set(self.get_available_resolutions()))
-        self.str_resolutions = [str(res[0])+' x '+str(res[1]) for res in self.resolutions]
     
-    def open(self):
-        if not self.cam.isOpened():
-            self.cam.open(self.id)
+    def wrap_vc(self):
+        self.is_open = lambda: self.cam.isOpened()
+        self.open = lambda: self.cam.open(self.id)
+        self.read = lambda: self.cam.read()
+        self.release = lambda: self.cam.release()
+        
+    def create_recorder(self):
+        f_name = datetime.now().strftime('y%Ym%md%d-h%Hm%Ms%S')
+        output_file = os.path.join(settings.RECORDINGS_DIR, f_name)
+        
+        """ Define the codec and create VideoWriter object """
+        fourcc = cv2.VideoWriter_fourcc(*'DVIX')
+        return cv2.VideoWriter(output_file, fourcc, settings.DEFAULT_RECORDING_FPS, self.res)
+    
+    def start_recording(self):
+        print('Recording on '+str(self)+'...')
+        self.recording = True
+        self.recorder = self.create_recorder()
+    
+    def record(self, frame):
+        if not self.recording:
+            print('Nothing to record on '+str(self))
+            return
+        self.recorder.write(frame)
+    
+    def stop_recording(self):
+        print('Finished recording on '+str(self)+'...')
+        self.recording = False
+        self.recorder.release()
     
     def set_resolution(self, res):
         """ Return true if successful """

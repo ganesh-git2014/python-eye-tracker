@@ -7,19 +7,28 @@ import os, cv2
 
 from classes.enhanced_cam import EnhancedCam
 
-RECORDING_DIR = 'recordings'
-CASCADE_PATH = 'haarcascades/haarcascade_eye.xml'
+def ensure_dir(f):
+    d = os.path.join(os.getcwd(), os.path.dirname(f))
+    if not os.path.exists(d):
+        os.mkdir(d)
+
+DEFAULT_RECORDING_FPS = 20.0
+CLIENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CLIENT_DIR)
+HAARCASCADES_DIR = os.path.join(CLIENT_DIR, 'haarcascades')
+RECORDINGS_DIR = os.path.join(CLIENT_DIR, 'recordings')
+LOGS_DIR = os.path.join(CLIENT_DIR, 'logs')
+CASCADE_FILE = os.path.join(HAARCASCADES_DIR, 'haarcascade_eye.xml')
+
+DIRS = [HAARCASCADES_DIR, LOGS_DIR, RECORDINGS_DIR]
+for folder in DIRS:
+    ensure_dir(folder)
 
 inst = None
 
 def init():
     global inst
     inst = PyETCore()
-
-def ensure_dir(f):
-    d = os.path.join(os.getcwd(), os.path.dirname(f))
-    if not os.path.exists(d):
-        os.mkdir(d)
 
 class PyETCore():
     def __init__(self):
@@ -30,8 +39,6 @@ class PyETCore():
         self.is_show_seeing = False
         self.is_cap_eye = False
         self.is_cap_seeing = False
-        
-        ensure_dir(RECORDING_DIR)
         
         self.find_cameras()
         
@@ -49,19 +56,21 @@ class PyETCore():
                 print('Found camera '+str(i)+'...')
                 self.cameras[i] = EnhancedCam(i, temp_cam)
                 print('Registered', self.cameras[i])
-                self.cameras[i].cam.release()
+                self.cameras[i].release()
     
     def show_eye(self):
         if self.eye_cam:
-            print("showing eye bruh...")
-            #print(dir(self.eye_cam.cam))
-            #self.eye_cam.cam.imshow()
-            self.is_show_eye = True#self.eye_cam.cam.open()
-            print("k yo")
+            print('Showing eye camera...')
+            self.is_show_eye = True
+        else:
+            print('Eye cam not found!')
     
     def show_seeing(self):
         if self.seeing_cam:
-            self.is_show_seeing = self.seeing_cam.cam.open()
+            print('Showing seeing camera...')
+            self.is_show_seeing = True
+        else:
+            print('Seeing cam not found!')
             
     def close_eye(self):
         self.is_cap_eye = False
