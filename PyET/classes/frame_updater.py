@@ -5,7 +5,7 @@ Created on Nov 30, 2015
 '''
 import cv2
 
-import PyET
+from PyET import PyET
 
 from PyQt5.QtCore import QObject, pyqtSignal
 from PyQt5.QtGui import QImage, QPixmap
@@ -21,11 +21,11 @@ class FrameUpdater(QObject):
     def process(self): # A slot takes no params
         print("YOOO")
         while True:
-            if PyET.inst.eye_cam and PyET.inst.eye_cam.cam:
-                if not PyET.inst.eye_cam.cam.isOpened():
+            if PyET.PyET.inst.eye_cam and PyET.PyET.inst.eye_cam.cam:
+                if not PyET.PyET.inst.eye_cam.cam.isOpened():
                     print("not open")
-                    print(PyET.inst.eye_cam.open())
-                ret, f = PyET.inst.eye_cam.cam.read()
+                    print(PyET.PyET.inst.eye_cam.open())
+                ret, f = PyET.PyET.inst.eye_cam.cam.read()
                 f = cv2.flip(f, 0)
                 if ret:
                     self.eye_frame_ready.emit(frame_to_pixmap(f), 1)

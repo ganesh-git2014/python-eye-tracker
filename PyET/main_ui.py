@@ -3,7 +3,7 @@ Created on Dec 7, 2015
 
 @author: rcbyron
 '''
-import PyET
+from PyET import PyET
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QThread
@@ -14,7 +14,7 @@ from classes.frame_updater import FrameUpdater
 class TrackerGui(MainUi):
  
     def update_cam_list(self):
-        cam_list = [str(cam) for cam in PyET.inst.cameras.values()]
+        cam_list = [str(cam) for cam in PyET.PyET.inst.cameras.values()]
         self.eye_cam_combo_box.clear()
         self.seeing_cam_combo_box.clear()
         self.eye_cam_combo_box.addItems(cam_list)
@@ -23,11 +23,11 @@ class TrackerGui(MainUi):
     def update_res_list(self):
         self.eye_res_combo_box.clear()
         self.seeing_res_combo_box.clear()
-        if PyET.inst.eye_cam:
-            r_list = PyET.inst.eye_cam.str_resolutions
+        if PyET.PyET.inst.eye_cam:
+            r_list = PyET.PyET.inst.eye_cam.str_resolutions
             self.eye_res_combo_box.addItems(r_list)
-        if PyET.inst.seeing_cam:
-            r_list = PyET.inst.seeing_cam.str_resolutions
+        if PyET.PyET.inst.seeing_cam:
+            r_list = PyET.PyET.inst.seeing_cam.str_resolutions
             self.seeing_res_combo_box.addItems(r_list)
     
     def show_eye(self):
@@ -50,8 +50,8 @@ class TrackerGui(MainUi):
         
         self.start_cap_btn.released.connect(lambda: print('recording!'))
         self.stop_cap_btn.released.connect(lambda: print('stopped recording!'))
-        self.eye_cam_btn.pressed.connect(PyET.inst.show_eye)
-        self.seeing_cam_btn.pressed.connect(PyET.inst.show_seeing)
+        self.eye_cam_btn.pressed.connect(PyET.PyET.inst.show_eye)
+        self.seeing_cam_btn.pressed.connect(PyET.PyET.inst.show_seeing)
 
     def on_frame_ready(self, pixmap, cam_type):
         pixmap = pixmap.scaled(self.cam_view.size(), Qt.KeepAspectRatio)
