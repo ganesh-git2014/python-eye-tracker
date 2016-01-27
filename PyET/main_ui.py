@@ -3,18 +3,17 @@ Created on Dec 7, 2015
 
 @author: rcbyron
 '''
-from PyET import settings
-
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QThread
 
+from PyET import PyETCore
 from ui.main_window import Ui_MainWindow as MainUi
 from classes.frame_updater import FrameUpdater
 
 class TrackerGui(MainUi):
  
     def update_cam_list(self):
-        cam_list = [str(cam) for cam in settings.inst.cameras.values()]
+        cam_list = [str(cam) for cam in PyETCore.inst.cameras.values()]
         self.eye_cam_combo_box.clear()
         self.seeing_cam_combo_box.clear()
         self.eye_cam_combo_box.addItems(cam_list)
@@ -23,11 +22,11 @@ class TrackerGui(MainUi):
     def update_res_list(self):
         self.eye_res_combo_box.clear()
         self.seeing_res_combo_box.clear()
-        if settings.inst.eye_cam:
-            r_list = settings.inst.eye_cam.str_resolutions
+        if PyETCore.inst.eye_cam:
+            r_list = PyETCore.inst.eye_cam.str_resolutions
             self.eye_res_combo_box.addItems(r_list)
-        if settings.inst.seeing_cam:
-            r_list = settings.inst.seeing_cam.str_resolutions
+        if PyETCore.inst.seeing_cam:
+            r_list = PyETCore.inst.seeing_cam.str_resolutions
             self.seeing_res_combo_box.addItems(r_list)
     
     def show_eye(self):
@@ -48,15 +47,15 @@ class TrackerGui(MainUi):
         self.update_cam_list()
         self.update_res_list()
         
-        self.start_cap_btn.released.connect()
-        self.stop_cap_btn.released.connect(lambda: print('stopped recording!'))
-        self.eye_cam_btn.pressed.connect(settings.inst.show_eye)
-        self.seeing_cam_btn.pressed.connect(settings.inst.show_seeing)
+        self.start_cap_btn.released.connect(PyETCore.inst.record_eye)
+        self.stop_cap_btn.released.connect(PyETCore.inst.stop_record_eye)
+        self.eye_cam_btn.pressed.connect(PyETCore.inst.show_eye)
+        self.seeing_cam_btn.pressed.connect(PyETCore.inst.show_seeing)
 
     def on_frame_ready(self, pixmap, cam_type):
         pixmap = pixmap.scaled(self.cam_view.size(), Qt.KeepAspectRatio)
         if cam_type is 1:
-            self.cam_view.setPixmap(pixmap)
+            self.cam_view_2.setPixmap(pixmap)
         elif cam_type is 2:
             self.cam_view.setPixmap(pixmap)
         app = QtCore.QCoreApplication.instance()

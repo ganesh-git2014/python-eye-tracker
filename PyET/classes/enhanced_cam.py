@@ -10,24 +10,26 @@ from datetime import datetime
 from PyET import settings
 
 DEFAULT_RESOLUTIONS = {#(480, 360),
-                       (640, 480),
+                       (1920, 1080),
+                       #(640, 480),
                        #(720, 480),
                        #(800, 600),
                        #(1280, 720),
-                       (1920, 1080)}
+                       #(1920, 1080)}
+                       }
 
 class EnhancedCam():
     def __init__(self, cam_id, cam):
         self.id = cam_id
         self.cam = cam
         self.recording = False
+    
+        self.wrap_get()
+        self.wrap_vc()
         
         self.resolutions = {self.res()}
         self.resolutions.update(set(self.get_available_resolutions()))
         self.str_resolutions = [str(res[0])+' x '+str(res[1]) for res in self.resolutions]
-    
-        self.wrap_get()
-        self.wrap_vc()
     
     def wrap_get(self):
         self.res =              lambda: (int(self.cam.get(cv2.CAP_PROP_FRAME_WIDTH)),
@@ -59,17 +61,20 @@ class EnhancedCam():
         self.release = lambda: self.cam.release()
         
     def create_recorder(self):
+        print('Creating recorder...')
         f_name = datetime.now().strftime('y%Ym%md%d-h%Hm%Ms%S')
-        output_file = os.path.join(settings.RECORDINGS_DIR, f_name)
-        
+        self.output_file = os.path.join(settings.RECORDINGS_DIR, f_name)
         """ Define the codec and create VideoWriter object """
         fourcc = cv2.VideoWriter_fourcc(*'DVIX')
-        return cv2.VideoWriter(output_file, fourcc, settings.DEFAULT_RECORDING_FPS, self.res)
+        self.recorder = cv2.VideoWriter(self.output_file, fourcc, settings.DEFAULT_RECORDING_FPS, self.res())
+        print('Recorder created!')
+        print(self.res())
     
     def start_recording(self):
         print('Recording on '+str(self)+'...')
+        self.create_recorder()
+        print('Directory:', self.output_file)
         self.recording = True
-        self.recorder = self.create_recorder()
     
     def record(self, frame):
         if not self.recording:
@@ -78,7 +83,8 @@ class EnhancedCam():
         self.recorder.write(frame)
     
     def stop_recording(self):
-        print('Finished recording on '+str(self)+'...')
+        print('Finished recording on '+str(self))
+        print('Recorded to:', self.output_file)
         self.recording = False
         self.recorder.release()
     
@@ -103,7 +109,7 @@ class EnhancedCam():
             return False
     
     def get_available_resolutions(self):
-        return {res for res in DEFAULT_RESOLUTIONS if self.try_resolution(res, revert=True)}
+        return {res for res in DEFAULT_RESOLUTIONS if self.try_resolution(res, revert=False)}
 
     def __str__(self):
         return 'Device ' + str(self.id)

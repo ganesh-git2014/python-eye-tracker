@@ -1,12 +1,12 @@
 import sys
 
-from PyET import settings
+import PyET.PyETCore as PyETCore
+
+from PyET.main_ui import TrackerGui
 
 from PyQt5 import QtWidgets
 
-from main_ui import TrackerGui
-
-settings.init()
+PyETCore.init()
 
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = QtWidgets.QMainWindow()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\rcbyron\Documents\Workspace\py\python-eye-tracker\ui\main_window.ui'
+# Form implementation generated from reading ui file 'C:\Users\rcbyron\Documents\Workspace\py\python-eye-tracker\PyET\ui\main_window.ui'
 #
 # Created by: PyQt5 UI code generator 5.5.1
 #
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(976, 539)
+        MainWindow.resize(1445, 602)
         MainWindow.setMinimumSize(QtCore.QSize(720, 0))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 254, 478))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 254, 541))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -119,7 +119,9 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.eye_cam_btn, 8, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.gridLayout_3.addWidget(self.scrollArea, 0, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.scrollArea, 0, 3, 1, 1)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.cam_view = QtWidgets.QLabel(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -129,10 +131,16 @@ class Ui_MainWindow(object):
         self.cam_view.setMinimumSize(QtCore.QSize(480, 360))
         self.cam_view.setAlignment(QtCore.Qt.AlignCenter)
         self.cam_view.setObjectName("cam_view")
-        self.gridLayout_3.addWidget(self.cam_view, 0, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.cam_view)
+        self.cam_view_2 = QtWidgets.QLabel(self.centralwidget)
+        self.cam_view_2.setMinimumSize(QtCore.QSize(480, 360))
+        self.cam_view_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.cam_view_2.setObjectName("cam_view_2")
+        self.horizontalLayout.addWidget(self.cam_view_2)
+        self.gridLayout_3.addLayout(self.horizontalLayout, 0, 1, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 976, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1445, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -175,6 +183,7 @@ class Ui_MainWindow(object):
         self.calibrate_btn.setText(_translate("MainWindow", "Calibrate Eye Camera"))
         self.eye_cam_btn.setText(_translate("MainWindow", "Eye Camera"))
         self.cam_view.setText(_translate("MainWindow", "(camera view)"))
+        self.cam_view_2.setText(_translate("MainWindow", "(camera view 2)"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuAbout.setTitle(_translate("MainWindow", "About"))
         self.action_coming_soon.setText(_translate("MainWindow", "(coming soon!)"))

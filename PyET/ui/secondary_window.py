@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\rcbyron\Documents\Workspace\py\python-eye-tracker\ui\secondary_window.ui'
+# Form implementation generated from reading ui file 'C:\Users\rcbyron\Documents\Workspace\py\python-eye-tracker\PyET\ui\secondary_window.ui'
 #
 # Created by: PyQt5 UI code generator 5.5.1
 #
