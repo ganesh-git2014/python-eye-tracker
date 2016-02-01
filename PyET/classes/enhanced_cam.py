@@ -3,11 +3,9 @@ Created on Nov 30, 2015
 
 @author: rcbyron
 '''
-import os, cv2
+import time, cv2
 
-from datetime import datetime
-
-from PyET import settings
+from PyET.classes.recorder import Recorder
 
 DEFAULT_RESOLUTIONS = {#(480, 360),
                        (1920, 1080),
@@ -59,33 +57,27 @@ class EnhancedCam():
         self.open = lambda: self.cam.open(self.id)
         self.read = lambda: self.cam.read()
         self.release = lambda: self.cam.release()
-        
-    def create_recorder(self):
-        print('Creating recorder...')
-        f_name = datetime.now().strftime('y%Ym%md%d-h%Hm%Ms%S.avi')
-        self.output_file = os.path.join(settings.RECORDINGS_DIR, f_name)
-        """ Define the codec and create VideoWriter object """
-        fourcc = cv2.VideoWriter_fourcc(*'DVIX')
-        self.recorder = cv2.VideoWriter(self.output_file, fourcc, 20.0, (640, 480))#settings.DEFAULT_RECORDING_FPS, self.res())
-        print('Recorder created!')
-        print(self.res())
     
     def start_recording(self):
-        print('\nRecording on '+str(self)+'...')
-        self.create_recorder()
-        print('Directory:', self.output_file)
+        self.recorder = Recorder(self.res())
         self.recording = True
-    
+        self.start_time = time.time()
+        print('Recording on', str(self))
+        
     def record(self, frame):
         if not self.recording:
-            print('Nothing to record on '+str(self))
+            print('Nothing to record on', str(self))
             return
+        
         self.recorder.write(frame)
-        print('Recorder written to:', self.recorder)
-    
+        meta = []
+        meta.append(time.time()-self.start_time)
+        meta.append(self.fps())
+        meta.append(self.res())
+        self.recorder.log.debug(str(meta)[1:-1])
+        
     def stop_recording(self):
-        print('\nFinished recording on '+str(self))
-        print('Recorded to:', self.output_file)
+        print('\nFinished recording on', str(self))
         self.recording = False
         self.recorder.release()
     
