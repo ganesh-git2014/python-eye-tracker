@@ -62,16 +62,16 @@ class EnhancedCam():
         
     def create_recorder(self):
         print('Creating recorder...')
-        f_name = datetime.now().strftime('y%Ym%md%d-h%Hm%Ms%S')
+        f_name = datetime.now().strftime('y%Ym%md%d-h%Hm%Ms%S.avi')
         self.output_file = os.path.join(settings.RECORDINGS_DIR, f_name)
         """ Define the codec and create VideoWriter object """
         fourcc = cv2.VideoWriter_fourcc(*'DVIX')
-        self.recorder = cv2.VideoWriter(self.output_file, fourcc, settings.DEFAULT_RECORDING_FPS, self.res())
+        self.recorder = cv2.VideoWriter(self.output_file, fourcc, 20.0, (640, 480))#settings.DEFAULT_RECORDING_FPS, self.res())
         print('Recorder created!')
         print(self.res())
     
     def start_recording(self):
-        print('Recording on '+str(self)+'...')
+        print('\nRecording on '+str(self)+'...')
         self.create_recorder()
         print('Directory:', self.output_file)
         self.recording = True
@@ -81,9 +81,10 @@ class EnhancedCam():
             print('Nothing to record on '+str(self))
             return
         self.recorder.write(frame)
+        print('Recorder written to:', self.recorder)
     
     def stop_recording(self):
-        print('Finished recording on '+str(self))
+        print('\nFinished recording on '+str(self))
         print('Recorded to:', self.output_file)
         self.recording = False
         self.recorder.release()

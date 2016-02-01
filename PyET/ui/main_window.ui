@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1445</width>
-    <height>602</height>
+    <width>1271</width>
+    <height>421</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -44,7 +44,7 @@
          <x>0</x>
          <y>0</y>
          <width>254</width>
-         <height>541</height>
+         <height>360</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -287,6 +287,22 @@
        </widget>
       </item>
       <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>2</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QLabel" name="cam_view_2">
         <property name="minimumSize">
          <size>
@@ -311,7 +327,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1445</width>
+     <width>1271</width>
      <height>21</height>
     </rect>
    </property>

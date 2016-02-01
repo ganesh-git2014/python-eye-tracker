@@ -35,7 +35,8 @@ class FrameUpdater(QObject):
                         f = cv2.flip(f, 0)
                         if PyETCore.inst.eye_cam.recording:
                             PyETCore.inst.eye_cam.record(f)
-                        self.eye_frame_ready.emit(frame_to_pixmap(f), 1)
+                        else:
+                            self.eye_frame_ready.emit(frame_to_pixmap(f), 1)
             if PyETCore.inst.seeing_cam:
                 if PyETCore.inst.is_show_seeing:
                     ret, f = PyETCore.inst.seeing_cam.read()

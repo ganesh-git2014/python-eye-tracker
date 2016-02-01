@@ -3,7 +3,9 @@ Created on Jan 27, 2016
 
 @author: rcbyron
 '''
-import cv2
+import sys, cv2
+
+from PyQt5 import QtWidgets
 
 from PyET.classes.enhanced_cam import EnhancedCam
 
@@ -26,6 +28,8 @@ def find_cameras():
 
 class PyETCore():
     def __init__(self):
+        self.app = QtWidgets.QApplication(sys.argv)
+        
         self.cameras = {}
         self.eye_cam = None
         self.seeing_cam = None

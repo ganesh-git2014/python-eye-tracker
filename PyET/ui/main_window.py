@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1445, 602)
+        MainWindow.resize(1271, 421)
         MainWindow.setMinimumSize(QtCore.QSize(720, 0))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 254, 541))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 254, 360))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -132,6 +132,8 @@ class Ui_MainWindow(object):
         self.cam_view.setAlignment(QtCore.Qt.AlignCenter)
         self.cam_view.setObjectName("cam_view")
         self.horizontalLayout.addWidget(self.cam_view)
+        spacerItem4 = QtWidgets.QSpacerItem(2, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem4)
         self.cam_view_2 = QtWidgets.QLabel(self.centralwidget)
         self.cam_view_2.setMinimumSize(QtCore.QSize(480, 360))
         self.cam_view_2.setAlignment(QtCore.Qt.AlignCenter)
@@ -140,7 +142,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addLayout(self.horizontalLayout, 0, 1, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1445, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1271, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -150,6 +152,7 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        MainWindow.closeEvent = self.closeEvent
         self.action_coming_soon = QtWidgets.QAction(MainWindow)
         self.action_coming_soon.setObjectName("action_coming_soon")
         self.action_coming_soon_2 = QtWidgets.QAction(MainWindow)
@@ -165,6 +168,9 @@ class Ui_MainWindow(object):
         self.seeing_cam_combo_box.activated['int'].connect(self.cam_view.update)
         self.eye_cam_combo_box.activated['int'].connect(self.cam_view.update)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def closeEvent(self, event):
+        print('CLOSED!')
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

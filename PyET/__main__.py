@@ -8,11 +8,10 @@ from PyQt5 import QtWidgets
 
 PyETCore.init()
 
-app = QtWidgets.QApplication(sys.argv)
 MainWindow = QtWidgets.QMainWindow()
 
 gui = TrackerGui()
 gui.setup_ui(MainWindow)
 
 MainWindow.show()
-sys.exit(app.exec_())
+sys.exit(PyETCore.inst.app.exec_())
