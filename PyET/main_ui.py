@@ -29,18 +29,8 @@ class TrackerGui(MainUi):
             r_list = PyETCore.inst.seeing_cam.str_resolutions
             self.seeing_res_combo_box.addItems(r_list)
     
-    def closeEvent(self, event):
-        print('Closing program...')
-        event.accept()
-    
-    def show_eye(self):
-        print('Showing eye!')
-        app = QtCore.QCoreApplication.instance()
-        app.processEvents()
-    
     def setup_ui(self, MainWindow):
         super().setupUi(MainWindow)
-        MainWindow.closeEvent = self.closeEvent
         self.f_updater = FrameUpdater()
         self.thread = QThread()
         self.f_updater.eye_frame_ready.connect(self.on_frame_ready)
@@ -52,10 +42,8 @@ class TrackerGui(MainUi):
         self.update_cam_list()
         self.update_res_list()
         
-        self.start_cap_btn.released.connect(PyETCore.inst.record_eye)
-        self.stop_cap_btn.released.connect(PyETCore.inst.stop_record_eye)
-        self.eye_cam_btn.pressed.connect(PyETCore.inst.show_eye)
-        self.seeing_cam_btn.pressed.connect(PyETCore.inst.show_seeing)
+        self.start_cap_btn.released.connect(PyETCore.inst.record)
+        self.stop_cap_btn.released.connect(PyETCore.inst.stop_record)
 
     def on_frame_ready(self, pixmap, cam_type):
         pixmap = pixmap.scaled(self.cam_view.size(), Qt.KeepAspectRatio)

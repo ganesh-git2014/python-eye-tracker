@@ -50,49 +50,20 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="12" column="0" colspan="2">
+          <item row="9" column="0" colspan="2">
            <widget class="QPushButton" name="seeing_prop_btn">
             <property name="text">
              <string>Advanced Property Editor</string>
             </property>
            </widget>
           </item>
-          <item row="15" column="0">
+          <item row="12" column="0">
            <widget class="QComboBox" name="eye_cam_combo_box"/>
           </item>
-          <item row="7" column="0" colspan="2">
-           <widget class="QLabel" name="cam_view_label">
-            <property name="text">
-             <string>Camera View:</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-            </property>
-           </widget>
-          </item>
           <item row="8" column="0">
-           <widget class="QPushButton" name="seeing_cam_btn">
-            <property name="text">
-             <string>Seeing Camera</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-            <property name="autoDefault">
-             <bool>false</bool>
-            </property>
-            <property name="default">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="11" column="0">
            <widget class="QComboBox" name="seeing_cam_combo_box"/>
           </item>
-          <item row="10" column="1">
+          <item row="7" column="1">
            <widget class="QLabel" name="seeing_res_label">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -108,7 +79,7 @@
             </property>
            </widget>
           </item>
-          <item row="10" column="0">
+          <item row="7" column="0">
            <widget class="QLabel" name="seeing_cam_label">
             <property name="text">
              <string>Seeing Camera:</string>
@@ -118,7 +89,7 @@
             </property>
            </widget>
           </item>
-          <item row="14" column="0">
+          <item row="11" column="0">
            <widget class="QLabel" name="eye_cam_label">
             <property name="text">
              <string>Eye Camera:</string>
@@ -128,13 +99,13 @@
             </property>
            </widget>
           </item>
-          <item row="15" column="1">
+          <item row="12" column="1">
            <widget class="QComboBox" name="eye_res_combo_box"/>
           </item>
-          <item row="11" column="1">
+          <item row="8" column="1">
            <widget class="QComboBox" name="seeing_res_combo_box"/>
           </item>
-          <item row="14" column="1">
+          <item row="11" column="1">
            <widget class="QLabel" name="eye_res_label">
             <property name="text">
              <string>Resolution:</string>
@@ -147,7 +118,7 @@
             </property>
            </widget>
           </item>
-          <item row="16" column="0" colspan="2">
+          <item row="13" column="0" colspan="2">
            <widget class="QPushButton" name="eye_prop_btn">
             <property name="text">
              <string>Advanced Property Editor</string>
@@ -174,14 +145,14 @@
             </property>
            </widget>
           </item>
-          <item row="18" column="0" colspan="2">
+          <item row="15" column="0" colspan="2">
            <widget class="QPushButton" name="toggle_gui_btn">
             <property name="text">
              <string>Toggle GUI (F7)</string>
             </property>
            </widget>
           </item>
-          <item row="17" column="0" colspan="2">
+          <item row="14" column="0" colspan="2">
            <spacer name="verticalSpacer_2">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -194,21 +165,8 @@
             </property>
            </spacer>
           </item>
-          <item row="13" column="0" colspan="2">
+          <item row="10" column="0" colspan="2">
            <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="9" column="0" colspan="2">
-           <spacer name="verticalSpacer_3">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
@@ -242,19 +200,6 @@
              </size>
             </property>
            </spacer>
-          </item>
-          <item row="8" column="1">
-           <widget class="QPushButton" name="eye_cam_btn">
-            <property name="text">
-             <string>Eye Camera</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
           </item>
          </layout>
         </item>
@@ -359,70 +304,5 @@
   </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>start_cap_btn</sender>
-   <signal>released()</signal>
-   <receiver>cam_view</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>872</x>
-     <y>51</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>368</x>
-     <y>269</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>stop_cap_btn</sender>
-   <signal>pressed()</signal>
-   <receiver>cam_view</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>872</x>
-     <y>80</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>368</x>
-     <y>269</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>seeing_cam_combo_box</sender>
-   <signal>activated(int)</signal>
-   <receiver>cam_view</receiver>
-   <slot>update()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>872</x>
-     <y>233</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>368</x>
-     <y>269</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>eye_cam_combo_box</sender>
-   <signal>activated(int)</signal>
-   <receiver>cam_view</receiver>
-   <slot>update()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>872</x>
-     <y>384</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>368</x>
-     <y>269</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

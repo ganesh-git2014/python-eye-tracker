@@ -8,8 +8,8 @@ import time, cv2
 from PyET.classes.recorder import Recorder
 
 DEFAULT_RESOLUTIONS = {#(480, 360),
-                       (1920, 1080),
-                       #(640, 480),
+                       #(1920, 1080),
+                       (640, 480),
                        #(720, 480),
                        #(800, 600),
                        #(1280, 720),
@@ -17,9 +17,10 @@ DEFAULT_RESOLUTIONS = {#(480, 360),
                        }
 
 class EnhancedCam():
-    def __init__(self, cam_id, cam):
+    def __init__(self, cam_id, cam, cam_type='undefined'):
         self.id = cam_id
         self.cam = cam
+        self.cam_type = cam_type
         self.recording = False
     
         self.wrap_get()
@@ -59,28 +60,25 @@ class EnhancedCam():
         self.release = lambda: self.cam.release()
     
     def start_recording(self):
-        self.recorder = Recorder(self.res())
-        self.recording = True
+        self.recorder = Recorder(self.res(), self.cam_type)
         self.start_time = time.time()
+        self.recording = True
         print('Recording on', str(self))
         
     def record(self, frame):
-        if not self.recording:
-            print('Nothing to record on', str(self))
-            return
-        
-        self.recorder.write(frame)
-        meta = []
-        meta.append(time.time()-self.start_time)
-        meta.append(self.fps())
-        meta.append(self.res())
-        self.recorder.log.debug(str(meta)[1:-1])
-        
+        if self.recording and self.recorder:
+            self.recorder.write(frame)
+            meta = []
+            meta.append(time.time()-self.start_time)
+            meta.append(self.res())
+            self.recorder.log.info(str(meta)[1:-1])
+            
     def stop_recording(self):
-        print('\nFinished recording on', str(self))
         self.recording = False
-        self.recorder.release()
-    
+        if self.recorder:
+            self.recorder.release()
+        print('Finished recording on', str(self))
+
     def set_resolution(self, res):
         """ Return true if successful """
         flag_1 = self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, res[0])
